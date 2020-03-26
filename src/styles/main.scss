@@ -1,0 +1,39 @@
+//The main scss file for bdit_cot-covid_congestion.
+
+//IMPORTANT:
+// Any resources from this project should be referenced using SRC_PATH preprocessor var
+// Ex: background-image: url(/* @echo SRC_PATH*//img/sample.jpg)
+
+#bdit_cot-covid_congestion_container {
+	body {
+	  overflow: visible;
+	  padding: 8px;
+	}
+
+	div#notebook {
+	  overflow: visible;
+	  border-top: none;
+	}
+
+	@media print {
+	  div.cell {
+	    display: block;
+	    page-break-inside: avoid;
+	  } 
+	  div.output_wrapper { 
+	    display: block;
+	    page-break-inside: avoid; 
+	  }
+	  div.output { 
+	    display: block;
+	    page-break-inside: avoid; 
+	  }
+	}
+
+
+
+
+
+
+
+} /* ! container */
