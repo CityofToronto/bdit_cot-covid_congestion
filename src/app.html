@@ -16,6 +16,7 @@ See examples below in the boilerplate code
     <!-- endinject -->
     <!-- place any application print-only stylesheet references here -->
   <!-- endbuild -->
+    <link rel="stylesheet" type="text/css" href="/resources/cdn/cotui/cotui.css">
 <!-- cot-app:head end-->
 
 <!-- cot-app:body -->
@@ -43,6 +44,17 @@ See examples below in the boilerplate code
     <!-- place your application script references here: -->
     <script type="text/javascript" src="<!-- @echo SRC_PATH -->/scripts/main.js"></script>
   <!-- endbuild -->
+  <script type="text/javascript" src="<!-- @echo SRC_PATH -->/scripts/i18next.min.js"></script>
+  <script type="text/javascript" src="<!-- @echo SRC_PATH -->/scripts/bootstrap.min.js"></script>
+  <script type="text/javascript" src="<!-- @echo SRC_PATH -->/scripts/d3.v4.min.js"></script>
+  <script type="text/javascript" src="<!-- @echo SRC_PATH -->/scripts/d3-legend.min.js"></script>
+  <script type="text/javascript" src="<!-- @echo SRC_PATH -->/scripts/queue.v1.min.js"></script>
+  <script type="text/javascript" src="<!-- @echo SRC_PATH -->/scripts/utils.js"></script>
+  <script type="text/javascript" src="<!-- @echo SRC_PATH -->/scripts/d3-scale-chromatic.v1.min.js"></script>
+  <script type="text/javascript" src="<!-- @echo SRC_PATH -->/scripts/line.js"></script>
+  <script type="text/javascript" src="<!-- @echo SRC_PATH -->/scripts/linetable_oneheader.js"></script>
+  <script type="text/javascript" src="<!-- @echo SRC_PATH -->/scripts/helpers.js"></script>
+  <script type="text/javascript" src="<!-- @echo SRC_PATH -->/scripts/settings.js"></script>
   <!--@if ENV!='prod'-->
   <script type="text/javascript">
     console.log('bdit_cot-monitoring running on <!--@echo ENV--> environment');
