@@ -11,7 +11,8 @@ settTtiLine = {
   aspectRatio: 16 / 9,
   datatable: false,
   filterData: function(d) {
-    const root = d.tpd;
+    console.log("orig d: ", d)
+    const root = d[Object.keys(d)[0]];
     const keys = this.z.getKeys(root);
     return keys.map(function(key) {
       return {
@@ -35,9 +36,13 @@ settTtiLine = {
     return arr;
   },
   x: {
-    label: i18next.t("x_label", {ns: "tti-summary"}), // "Month",
+    label: i18next.t("x_label", {ns: "tti-summary"}),
     getValue: function(d) {
-      if (d) return new Date(d.date + "-01");
+      // d: "2020-03-03-01"
+      let s = d.date.split("-"); // [ "2020", "03", "03", "03" ]
+      // new Date(2020, 02, 01, 1)
+      // if (d) return new Date(d.date + "-01");
+      if (d) return new Date(s[0], s[1], s[2], s[3]);
     },
     getText: function(d) {
       if (d) return d.date;
@@ -91,13 +96,15 @@ settTtiLine = {
       return [i18next.t(th[0], {ns: "tti"}), i18next.t(th[1], {ns: "tti-summary"})];
     },
     getLegendKeys: function(d) {
-      const keys = Object.keys(d.tpd).splice(1);
+      const root = Object.keys(d)[0];
+      const keys = Object.keys(d[root]).splice(1);
       return [i18next.t(keys[0], {ns: "tti"}), i18next.t(keys[1], {ns: "tti-summary"})];
     },
     getClass: function(...args) {
       return this.z.getId.apply(this, args);
     },
     getDataPoints: function(d) {
+      console.log("z.getDataPoints: ", d)
       return d.values;
     },
     getNotNullDataPoints: function(d) { // for overlay
@@ -146,7 +153,7 @@ settTtiLine = {
     textdelta: [10, 3]
   },
   datatable: true,
-  summaryId: "tpd-dt-tbl",
+  summaryId: "tti-dt-tbl",
   attachedToSvg: true,
   pair: {
     getValues: function(d) { // used for data table ONLY

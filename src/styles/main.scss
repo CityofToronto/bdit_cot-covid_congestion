@@ -19,13 +19,29 @@
 
 	/* DV-related */
 	.dline {
-		stroke-width: 7px;
+		stroke-width: 1px;
 	}
 
 
 	/* Fig 1 - TTI Summary lineChart */
 	.line svg {
 		fill: currentColor;
+	}
+	#ttiSummary .dline1 {
+		stroke: cyan;
+	}
+	#ttiSummary .dline2 {
+		stroke: gray;
+	}
+	#ttiSummary .dline3 {
+		stroke: gray;
+		stroke-dasharray: 10,3; /* ON, OFF*/
+		display: none;
+	}
+	#ttiSummary .dline4 {
+		stroke: gray;
+		stroke-dasharray: 10,3; /* ON, OFF*/
+		display:none;
 	}
 	.ttiline text {
 		font-size: 14px;
@@ -37,10 +53,7 @@
 	.line svg .domain {
 		stroke: currentColor;
 	}
-	#ttiSummary .dline2 {
-		stroke: #FF7F00;
-		stroke-dasharray: 10,3; /* ON, OFF*/
-	}
+
 	#ttiSummary .legendline {
 		stroke-width: 5px !important;
 	}

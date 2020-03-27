@@ -1,4 +1,5 @@
 function lineChart(svg, settings, rawdata) {
+  console.log("rawdata: ", rawdata)
   // This fn is a little bit different from the lineChart component in that it
   // plots only one line at a time, according to the user selection, but accepts
   // more than one line in the rawdata object that is passed as an argument to
@@ -64,6 +65,8 @@ function lineChart(svg, settings, rawdata) {
         return line(sett.z.getDataPoints.apply(sett, arguments));
       },
       lines, labels;
+
+      console.log("filteredData: ", filteredData)
 
     x = rtnObj.x = getXScale().range(sett.x.getRange.call(sett, flatData));
     y = rtnObj.y = d3.scaleLinear().range([innerHeight, 0]);

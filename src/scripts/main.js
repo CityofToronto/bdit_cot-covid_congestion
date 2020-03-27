@@ -22,6 +22,16 @@ $(function () {
 
 // -----------------------------------------------------------------------------
 // CUSTOM CODE
+// data objects
+let tti = {}; // TTI summary
+
+// Chart SVG names
+let ttiSvg;
+
+function showTTIline() {
+  const ttiLine = lineChart(ttiSvg, settTtiLine, tti);
+  // rotateLabels("ttiSummary", settTtiLine); // axes labels
+}
 
 
 function uiHandler(event) {
@@ -38,9 +48,9 @@ $(document).ready(function(){
   // ---------------------------------------------------------------------------
   // Chart SVGs
   // Fig 1 - TTI Summary lineChart
-  // ttiSvg = d3.select(".tpdline")
-  //   .append("svg")
-  //   .attr("id", "ttiSummary");
+  ttiSvg = d3.select(".ttiline")
+    .append("svg")
+    .attr("id", "ttiSummary");
 
   // Initial page load
   i18n.load(["/* @echo SRC_PATH *//i18n"], () => {
@@ -50,6 +60,11 @@ $(document).ready(function(){
       .defer(d3.json, "/* @echo SRC_PATH *//data/fig1_tti_summary.json") // Fig 1 - daily trip lineChart in city
       .await(function(error, fig1) {
         // Load data files into objects
+        tti = fig1;
+
+        showTTIline();
+        // const tpdTableTitle = `${i18next.t("tabletitle", {ns: "tpd"})}`;
+        // d3.select(".tpdline").select("summary").text(tpdTableTitle);
 
       });
   })

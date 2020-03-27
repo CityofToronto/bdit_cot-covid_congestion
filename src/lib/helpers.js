@@ -253,30 +253,6 @@ function fullExtent(sett, dataObj) {
   return d3.extent(flatData);
 }
 
-// Save hoverLine position when frozen
-function saveHoverLinePos() {
-  saveHoverPos = []; // clear
-  let x1 = d3.select("#fractionline .hoverLine").attr("x1");
-  let x2 = d3.select("#fractionline .hoverLine").attr("x2");
-  let y1 = d3.select("#fractionline .hoverLine").attr("y1");
-  let y2 = d3.select("#fractionline .hoverLine").attr("y2");
-  return saveHoverPos.push(x1, x2, y1, y2);
-}
-// Hold frozen hoverLine when PUDO menu toggled
-function holdHoverLine(ptArray) {
-  d3.select("#fractionline .hoverLine").attr("x1", ptArray[0]);
-  d3.select("#fractionline .hoverLine").attr("x2", ptArray[1]);
-  d3.select("#fractionline .hoverLine").attr("y1", ptArray[2]);
-  d3.select("#fractionline .hoverLine").attr("y2", ptArray[3]);
-}
-// Display hover tool text in PUDO line chart
-function showHoverText(...args) {
-  const initText = [{
-    id: 1,
-    text: `${i18next.t("y_label", {ns: "ward_towline"})}: ${args[0]}, ${args[2][0]} ${args[1]}:00 (${i18next.t(args[2][1], {ns: "timewin"})})`
-  }];
-  hoverTextBind(initText);
-}
 
 // Hide table and close details (to be opened with action button)
 function hideTable(divClassName) {
@@ -450,65 +426,4 @@ function rotateLabels(chartId, sett) {
                 + (sett.x.translateXY[1]) + ")";
       });
   }
-}
-
-// -----------------------------------------------------------------------------
-function showLineHover(lineCoords) { // Move hoverLine to specified coordinates
-  holdHoverLine(lineCoords);
-}
-
-// -----------------------------------------------------------------------------
-// Text stories
-function humberStory() {
-  const hbId = "hb-w1-Monday-amPeak-pudo-pudo";
-  const hbSrc = "src-w1-Monday-amPeak-pudo-pudo";
-
-  const layerObj = map.getStyle().layers;
-  const rootLayer = "w1-Monday-amPeak";
-  const type = "pudo";
-
-  // Display ward 1 in ward-menu; Pick-ups & Drop-offs in pudo-menu
-  d3.select("#ward-menu").node()[0].selected = true;
-  d3.select("#pudo-menu").node()[0].selected = true;
-
-  // Unfreeze hoverLine if it was previously frozen
-  if (!d3.select(".mapboxgl-canvas-container").classed("moveable")) {
-    d3.select(".mapboxgl-canvas-container").classed("moveable", true);
-  }
-
-  // Show hoverLine and tooltip for ward 1, Mon, amPeak, Humber College
-  showLineHover(settPudoLine.initHoverLine.coords);
-  pudoHr = settPudoLine.initHoverLine.indices[0];
-  pudoIdx = settPudoLine.initHoverLine.indices[1];
-  const thisTOD = findTOD([pudoHr, pudoIdx]);
-  const val = d3.format("(,")(ptcFraction[ward][Object.keys(ptcFraction[ward])[1]][pudoIdx]);
-  showHoverText(val, pudoHr, thisTOD);
-
-  // Set focus and zoom to Humber College
-  if (map.getZoom() !== pudoMapSett.hbFocus.zoom) {
-    map.setZoom(pudoMapSett.hbFocus.zoom);
-  }
-  map.flyTo({center: pudoMapSett.hbFocus.xy});
-
-  // Clear ward bd and markers if not in w1 or if in another Day or TOD in w1
-  if (ward === "w1" && (pudoDay !== "Monday" || pudoTOD !== "amPeak" ||
-      whichPUDO !== "pudo") || ward !== "w1") {
-    hideLayers(layerObj, false);
-    map.setLayoutProperty(`${ward}-layer`, "visibility", "none");
-    map.setLayoutProperty("w1-layer", "visibility", "visible");
-
-    // reset
-    pudoDay = "Monday";
-    pudoTOD = "amPeak";
-    whichPUDO = "pudo";
-    ward = "w1";
-
-    // Display marker layers for w1-Monday-amPeak
-    showLayer(rootLayer, layerObj, "pu");
-    showLayer(rootLayer, layerObj, "do");
-    showOverlapLayer(rootLayer, layerObj);
-  }
-
-  // Draw a highlighting circle around Humber College PUDO circle
-  makeStoryLayer(hbId, hbSrc, "pudo","humber");
 }
