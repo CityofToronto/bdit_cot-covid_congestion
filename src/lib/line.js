@@ -66,7 +66,7 @@ function lineChart(svg, settings, rawdata) {
       },
       lines, labels;
 
-      console.log("filteredData: ", filteredData)
+      console.log("flatData: ", flatData)
 
     x = rtnObj.x = getXScale().range(sett.x.getRange.call(sett, flatData));
     y = rtnObj.y = d3.scaleLinear().range([innerHeight, 0]);
@@ -176,7 +176,8 @@ function lineChart(svg, settings, rawdata) {
     }
     xAxisObj.call(
       d3.axisBottom(x)
-        .ticks(sett.x.ticks)
+        // .ticks(sett.x.ticks)
+        .ticks(d3.timeDay.every(10))
         .tickValues(sett.z.getxtickIdx ? sett.z.getxtickIdx.call(sett, filteredData) : null)
         .tickFormat(sett.x.getTickText ? sett.x.getTickText.bind(sett) : null)
         .tickSize(sett.tickSize ? sett.tickSize : 6)

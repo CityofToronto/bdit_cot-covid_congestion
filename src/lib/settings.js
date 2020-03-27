@@ -42,24 +42,30 @@ settTtiLine = {
       let s = d.date.split("-"); // [ "2020", "03", "03", "03" ]
       // new Date(2020, 02, 01, 1)
       // if (d) return new Date(d.date + "-01");
-      if (d) return new Date(s[0], s[1], s[2], s[3]);
+      // if (d) return new Date(s[0], s[1], s[2], s[3]);
+      if (d) return new Date(s[0], parseInt(s[1]) - 1, s[2], s[3]);
     },
     getText: function(d) {
       if (d) return d.date;
     },
-    ticks: 6,
+    // ticks: 2,
     translateXY: [0, 40],
     // from extend
     getDomain: function(flatData) {
+      console.log("getDomain: ", d3.extent(flatData, this.x.getValue.bind(this)))
       return d3.extent(flatData, this.x.getValue.bind(this));
     },
     getRange: function() {
       return [0, this.innerWidth];
     },
-    getTickText: function(val) {
+    getTickText: function(val, i) {
       const yr = new Intl.DateTimeFormat('en', { year: '2-digit' }).format(val);
       const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(val);
-      return `${mo}-${yr}`;
+      const dy = new Intl.DateTimeFormat('en', { day: 'numeric' }).format(val);
+      const hr = new Intl.DateTimeFormat('en', { hour: 'numeric' }).format(val);
+      console.log("val: ", i, val)
+      return `${dy}-${mo} ${hr}`;
+      // return val;
     }
   },
   y: {
@@ -104,7 +110,6 @@ settTtiLine = {
       return this.z.getId.apply(this, args);
     },
     getDataPoints: function(d) {
-      console.log("z.getDataPoints: ", d)
       return d.values;
     },
     getNotNullDataPoints: function(d) { // for overlay
