@@ -4,9 +4,9 @@ settTtiLine = {
   alt: i18next.t("alt", {ns: "tti-summary"}),
   margin: {
     top: 30,
-    right: 178,
+    right: 70,
     bottom: 80,
-    left: 178
+    left: 70
   },
   aspectRatio: 16 / 9,
   datatable: false,

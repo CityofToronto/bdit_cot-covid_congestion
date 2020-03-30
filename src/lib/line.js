@@ -177,7 +177,7 @@ function lineChart(svg, settings, rawdata) {
     xAxisObj.call(
       d3.axisBottom(x)
         // .ticks(sett.x.ticks)
-        .ticks(d3.timeDay.every(10))
+        .ticks(d3.timeDay.every(5))
         .tickValues(sett.z.getxtickIdx ? sett.z.getxtickIdx.call(sett, filteredData) : null)
         .tickFormat(sett.x.getTickText ? sett.x.getTickText.bind(sett) : null)
         .tickSize(sett.tickSize ? sett.tickSize : 6)
